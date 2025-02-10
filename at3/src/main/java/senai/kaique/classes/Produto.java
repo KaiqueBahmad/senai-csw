@@ -13,9 +13,9 @@ public class Produto {
         quantidadeEstoque += qtd;
     }
 
-    public void removerEstoque(ind qtd) {
+    public void removerEstoque(int qtd) {
         if (quantidadeEstoque - qtd < 0) {
-            System.out.println("Você não pode remover mais do que há no estoque.");
+            System.out.println("Vocï¿½ nï¿½o pode remover mais do que hï¿½ no estoque.");
             return;
         }
         quantidadeEstoque -= qtd;

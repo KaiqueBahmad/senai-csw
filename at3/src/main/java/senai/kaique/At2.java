@@ -4,13 +4,35 @@
 
 package senai.kaique;
 
+import senai.kaique.classes.Produto;
+
 /**
  *
  * @author kaique
  */
 public class At2 {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+	public static void main(String[] args) {
+        Produto produto = new Produto();
+        produto.setNome("Smartphone");
+        produto.setPreco(1499.99);
+        
+        System.out.println("Estado inicial do produto:");
+        produto.exibirInformacoes();
+        
+        System.out.println("\nAdicionando 10 unidades:");
+        produto.adicionarEstoque(10);
+        produto.exibirInformacoes();
+        
+        System.out.println("\nRemovendo 3 unidades:");
+        produto.removerEstoque(3);
+        produto.exibirInformacoes();
+        
+        System.out.println("\nTentando remover 8 unidades:");
+        produto.removerEstoque(8);
+        
+        System.out.println("\nAdicionando mais 5 unidades:");
+        produto.adicionarEstoque(5);
+        produto.exibirInformacoes();
     }
 }
