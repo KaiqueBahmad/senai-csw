@@ -10,7 +10,7 @@ import senai.kaique.classes.Produto;
  *
  * @author kaique
  */
-public class At2 {
+public class At3 {
 
 	public static void main(String[] args) {
         Produto produto = new Produto();

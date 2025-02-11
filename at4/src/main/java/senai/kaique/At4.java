@@ -12,7 +12,7 @@ import senai.kaique.classes.Veiculo;
  *
  * @author kaique
  */
-public class At3 {
+public class At4 {
 
     public static void main(String[] args) {
         Veiculo veiculo = new Veiculo();
@@ -32,7 +32,7 @@ public class At3 {
         moto.setAno(2023);
         moto.setCilindradas(600);
 
-        System.out.println("Veículo:");
+        System.out.println("Veï¿½culo:");
         veiculo.exibirDetalhes();
 
         System.out.println("\nCarro:");
