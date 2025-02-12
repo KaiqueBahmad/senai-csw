@@ -13,7 +13,7 @@ public class PagamentoBoleto extends Pagamento {
 
 	@Override
 	public void exibirDetalhes() {
-			System.out.println("Pagamento em cartão utilizando 0% sobre o total como taxas. Totalizando: "+calcularValor());
+			System.out.println("Pagamento Boleto de "+this.valor_total+", utilizando 0% sobre o total como taxas. Totalizando: "+calcularValor());
 		
 	}
 
