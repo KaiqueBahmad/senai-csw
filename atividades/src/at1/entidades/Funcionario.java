@@ -3,6 +3,9 @@ package at1.entidades;
 public class Funcionario {
 	private String nome;
 	private Double salario;
+	
+	
+	
 	public String getNome() {
 		return nome;
 	}
