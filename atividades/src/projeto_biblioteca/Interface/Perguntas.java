@@ -27,7 +27,7 @@ public class Perguntas {
 		return scanner.nextLine();
 	}
 	public static String pedirLogin() {
-		System.out.println("#(Existe um usuário padrão username: operador, senha: 1423)");
+		System.out.println("#(Existe um usuário padrão username: operador, senha: 1234 )");
 		System.out.println("A) Login");
 		aviso();
 		System.out.println("Escolha uma opcao: ");
