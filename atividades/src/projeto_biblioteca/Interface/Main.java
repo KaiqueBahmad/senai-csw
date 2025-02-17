@@ -30,6 +30,10 @@ public class Main {
                 resposta = Perguntas.cadastrarCliente();
             } else if (estado == Etapas.REMOVER_CLIENTE) {
                 resposta = Perguntas.removerCliente();
+            } else if (estado == Etapas.LOCAR_LIVRO) {
+                resposta = Perguntas.locarLivro();
+            } else if (estado == Etapas.DEVOLVER_LIVRO) {
+                resposta = Perguntas.devolverLivro();
             }
             Controlador.processarResposta(resposta);
         }

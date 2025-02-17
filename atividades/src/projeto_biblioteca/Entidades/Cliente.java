@@ -1,5 +1,8 @@
 package projeto_biblioteca.Entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente extends Usuario {
 	private static long counter = 0 ;
 	long id = 0;
@@ -7,6 +10,11 @@ public class Cliente extends Usuario {
 	String cpf;
 	String endereco;
 	String telefone;
+	List<Livro> livrosEmprestados = new ArrayList<>();
+	
+	public List<Livro> getLivrosEmprestados() {
+		return livrosEmprestados;
+	}
 	
 	public String getNome() {
 		return nome;

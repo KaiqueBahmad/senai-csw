@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import projeto_biblioteca.Entidades.Cliente;
+import projeto_biblioteca.Entidades.Livro;
 import projeto_biblioteca.Entidades.Operador;
 import projeto_biblioteca.Entidades.Usuario;
 
@@ -19,7 +20,8 @@ public class Perguntas {
 			System.out.println("E) Remover Cliente");
 		}
 		if (Main.logado instanceof Cliente) {
-			System.out.println("(A) Pegar livro");
+			System.out.println("A) Locar livro");
+			System.out.println("B) Devolver livro");
 		}
 		aviso();
 		return scanner.nextLine();
@@ -247,6 +249,33 @@ public class Perguntas {
 	    } catch (NumberFormatException e) {
 	        return false;
 	    }
+	}
+	
+	public static String locarLivro() {
+		aviso();
+		System.out.println("Livros disponíveis:");
+		for (Livro livro : Main.biblioteca.getLivros().values()) {
+			if (livro.getEstoque() > 0 && ! ((Cliente) Main.logado).getLivrosEmprestados().contains(livro)) {
+				System.out.println(livro);
+			}
+		}
+		System.out.println("Digite o ID do livro que deseja locar:");
+		return scanner.nextLine();
+	}
+	
+	public static String devolverLivro() {
+		Cliente cliente = (Cliente) Main.logado;
+		aviso();
+		System.out.println("Seus livros emprestados:");
+		for (Livro livro : cliente.getLivrosEmprestados()) {
+			System.out.println(livro);
+		}
+		if (cliente.getLivrosEmprestados().isEmpty()) {
+			System.out.println("Você não tem livros emprestados.");
+			return "-1";
+		}
+		System.out.println("Digite o ID do livro que deseja devolver:");
+		return scanner.nextLine();
 	}
 	
 	private static void aviso() {

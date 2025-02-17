@@ -40,6 +40,10 @@ public class Controlador {
 			handleRecebendoMenuOperador(resposta);
 			break;
 		
+		case RECEBENDO_MENU_CLIENTE:
+			handleRecebendoMenuCliente(resposta);
+			break;
+			
 		case CADASTRANDO_LIVRO:
 			handleCadastrandoLivro(resposta);
 			break;
@@ -58,6 +62,15 @@ public class Controlador {
 			
 		case REMOVER_CLIENTE:
 			handleRemoverCliente(resposta);
+			break;
+			
+		case LOCAR_LIVRO:
+			handleLocarLivro(resposta);
+			break;
+			
+		case DEVOLVER_LIVRO:
+			handleDevolverLivro(resposta);
+			break;
 			
 		default:
 			break;
@@ -147,6 +160,23 @@ public class Controlador {
 	    }
 	}
 
+	private static void handleRecebendoMenuCliente(String resposta) {
+		List<String> respostasValidas = Arrays.asList("A", "B", "a", "b");
+		if (!respostasValidas.contains(resposta)) {
+			return;
+		}
+		
+		resposta = resposta.toUpperCase();
+		switch (resposta) {
+			case "A":
+				Main.estado = Etapas.LOCAR_LIVRO;
+				break;
+			case "B":
+				Main.estado = Etapas.DEVOLVER_LIVRO;
+				break;
+		}
+	}
+	
 	private static void handleColetandoLogin(String resposta) {
 		String[] login = resposta.split(";");
 		String username = login[0];
@@ -210,6 +240,73 @@ public class Controlador {
 	    Main.estado = Etapas.RECEBENDO_MENU_OPERADOR;
 	}
 
+	private static void handleLocarLivro(String resposta) {
+		if (!resposta.matches("\\d+")) {
+			System.out.println("ID inválido");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		
+		Long id = Long.parseLong(resposta);
+		Livro livro = Main.biblioteca.getLivros().get(id);
+		
+		if (livro == null) {
+			System.out.println("Livro não encontrado");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		
+		if (livro.getEstoque() <= 0) {
+			System.out.println("Livro sem estoque disponível");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		
+		
+		Cliente cliente = (Cliente) Main.logado;
+		if (cliente.getLivrosEmprestados().size() > 0) {
+			System.out.println("Você já tem um livro locado");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		livro.setEstoque(livro.getEstoque() - 1);
+		cliente.getLivrosEmprestados().add(livro);
+		System.out.println("Livro locado com sucesso!");
+		
+		Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+	}
+	
+	private static void handleDevolverLivro(String resposta) {
+		if (!resposta.matches("\\d+")) {
+			System.out.println("ID inválido");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		
+		Long id = Long.parseLong(resposta);
+		Cliente cliente = (Cliente) Main.logado;
+		Livro livroParaDevolver = null;
+		
+		for (Livro livro : cliente.getLivrosEmprestados()) {
+			if (livro.getId() == id) {
+				livroParaDevolver = livro;
+				break;
+			}
+		}
+		
+		if (livroParaDevolver == null) {
+			System.out.println("Livro não encontrado entre seus empréstimos");
+			Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+			return;
+		}
+		
+		cliente.getLivrosEmprestados().clear();;
+		livroParaDevolver.setEstoque(livroParaDevolver.getEstoque() + 1);
+		System.out.println("Livro devolvido com sucesso!");
+		
+		Main.estado = Etapas.RECEBENDO_MENU_CLIENTE;
+	}
+	
 	private static void handleRemoverCliente(String resposta) {
 	    String username = resposta.trim();
 	    
