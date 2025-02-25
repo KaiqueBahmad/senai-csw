@@ -68,6 +68,8 @@ public class SalaService {
 	}
 	
 	public Nota criarNota(Nota nota) {
+		System.out.println(nota.getSala().getId());
+		System.out.println(salas.get(nota.getSala().getId()));
 		if (nota.getSala() == null ||!salas.containsKey(nota.getSala().getId())) {
 			throw new RuntimeErrorException(null, "Sala não encontrada.");
 		}
@@ -104,6 +106,21 @@ public class SalaService {
 			throw new RuntimeErrorException(null, "Sala não encontrada.");
 		}
 		return this.salas.get(salaId);
+	}
+
+	public Double getMedia(Integer salaId, Integer alunoId) {
+		double media = 0;
+		SalaAluno chave = new SalaAluno(salaId, alunoId);
+		if (!notas.containsKey(chave)) {
+			throw new RuntimeErrorException(null, "Aluno não encontrado nesta sala");
+		}
+		for (Nota nota: notas.get(chave)) {
+			media += nota.getNota();
+		}
+		if (media == 0) {
+			return 0.0;
+		}
+		return media / notas.get(chave).size();
 	}
 	
 }

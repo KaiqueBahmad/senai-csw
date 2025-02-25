@@ -4,7 +4,7 @@ public class Nota {
 	private Integer id;
 	private Aluno aluno;
 	private Sala sala;
-	private double nota = 0.0;
+	private Double nota = 0.0;
 	
 	public Integer getId() {
 		return id;
