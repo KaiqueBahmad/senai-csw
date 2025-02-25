@@ -1,4 +1,4 @@
-package entidades;
+package senai.kaiquebt.atividade2402.entidades;
 
 public class Aluno {
 	private Integer id;

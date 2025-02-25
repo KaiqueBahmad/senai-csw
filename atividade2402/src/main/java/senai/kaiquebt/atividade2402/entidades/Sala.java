@@ -1,4 +1,4 @@
-package entidades;
+package senai.kaiquebt.atividade2402.entidades;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -1,15 +1,15 @@
-package services;
+package senai.kaiquebt.atividade2402.services;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
 
-import entidades.Aluno;
-import entidades.Nota;
-import entidades.Sala;
-
+import senai.kaiquebt.atividade2402.entidades.Aluno;
+import senai.kaiquebt.atividade2402.entidades.Nota;
+import senai.kaiquebt.atividade2402.entidades.Sala;
 
 @Service
 public class SalaService {
