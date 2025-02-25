@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.stereotype.Service;
 
@@ -43,11 +46,21 @@ public class SalaService {
 	public Aluno criarAluno(Aluno aluno) {
 		ALUNO_COUNTER++;
 		alunos.put(ALUNO_COUNTER, aluno);
+		aluno.setMatricula(UUID.randomUUID().toString());
 		aluno.setId(ALUNO_COUNTER);
 		return aluno;
 	}
 
 	public Sala criarSala(Sala sala) {
+		if (sala.getNome() == null) {
+			throw new RuntimeErrorException(null, "Nome não pode ser nulo");
+		}
+		sala.setAlunos(new LinkedList<>());
+		for (Sala salaExistente: this.salas.values()) {
+			if (salaExistente.getNome().equalsIgnoreCase(sala.getNome())) {
+				throw new RuntimeErrorException(null, "Já existe uma sala com o nome: "+sala.getNome());
+			}
+		}
 	    SALA_COUNTER++;
 	    salas.put(SALA_COUNTER, sala);
 	    sala.setId(SALA_COUNTER);
@@ -55,19 +68,15 @@ public class SalaService {
 	}
 	
 	public Nota criarNota(Nota nota) {
-		if (nota.getAluno() == null) {
-			return null;
+		if (nota.getSala() == null ||!salas.containsKey(nota.getSala().getId())) {
+			throw new RuntimeErrorException(null, "Sala não encontrada.");
 		}
-		if (nota.getSala() == null) {
-			return null;
-		}
-		if (nota.getAluno().getId() == null) {
-			nota.setAluno(criarAluno(nota.getAluno()));
+		if (nota.getAluno() == null || !alunos.containsKey(nota.getAluno().getId())) {
+			throw new RuntimeErrorException(null, "Aluno não encontrado");
 		}
 		
-		if (nota.getSala().getId() == null) {
-			nota.setSala(criarSala(nota.getSala()));
-		}
+		nota.setAluno(this.alunos.get(nota.getAluno().getId()));
+		nota.setSala(this.salas.get(nota.getSala().getId()));
 		
 		SalaAluno chave = new SalaAluno(nota.getSala().getId(), nota.getAluno().getId());
 		if (!notas.containsKey(chave)) {
@@ -81,6 +90,20 @@ public class SalaService {
 		notas.get(chave).add(nota);
 		return nota;
 	}
-	
+
+	public Sala addAlunoNaSala(Integer salaId, Integer alunoId) {
+		Sala sala = salas.get(salaId);
+		Aluno aluno = alunos.get(alunoId);
+		sala.getAlunos().add(aluno);
+		aluno.setSala(sala);
+		return sala;
+	}
+
+	public Sala buscarSala(Integer salaId) {
+		if (!salas.containsKey(salaId)) {
+			throw new RuntimeErrorException(null, "Sala não encontrada.");
+		}
+		return this.salas.get(salaId);
+	}
 	
 }

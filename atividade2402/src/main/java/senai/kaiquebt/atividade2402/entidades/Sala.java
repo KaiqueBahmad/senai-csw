@@ -24,6 +24,9 @@ public class Sala {
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
 	}
-	
+	@Override
+	public String toString() {
+		return "Sala [id=" + id + ", nome=" + nome + ", alunos=" + alunos + "]";
+	}
 	
 }
