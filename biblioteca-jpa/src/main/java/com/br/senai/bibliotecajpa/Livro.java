@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "livros")
@@ -15,8 +16,18 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+    
     @Column(name = "titulo", nullable = false, length = 100)
     private String titulo;
+    
+    @Column(name = "isbn", nullable = false, length = 100)
+    private String isbn;
+    
+    @Column(name = "editora", nullable = false, length = 100)
+    private String editora;
 
     @Column(name = "autor", nullable = false, length = 100)
     private String autor;
@@ -90,6 +101,14 @@ public class Livro {
         this.dataCadastro = dataCadastro;
     }
 
+    public String getIsbn() {
+    	return isbn;
+    }
+    
+    public void setIsbn(String isbn) {
+    	this.isbn = isbn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,4 +133,22 @@ public class Livro {
                 ", dataCadastro=" + dataCadastro +
                 '}';
     }
+
+	public String getEditora() {
+		return editora;
+	}
+
+	public void setEditora(String editora) {
+		this.editora = editora;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+    
 }

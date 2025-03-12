@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 @Service
 public class LivroService {
 
@@ -20,6 +22,7 @@ public class LivroService {
     }
 
     public Livro save(Livro livro) {
+    	validaLivro(livro);
         return this.livroRepository.save(livro);
     }
 
@@ -28,7 +31,17 @@ public class LivroService {
     }
 
     public Livro update(Livro livro) {
+    	validaLivro(livro);
         return this.save(livro);
+    }
+    
+    public void validaLivro(Livro livro) {
+    	if (livro.getEditora() == null) {
+    		throw new RuntimeErrorException(null, "Preencha o campo Editora");
+    	}
+    	if (livro.getIsbn() == null) {
+    		throw new RuntimeErrorException(null, "Preencha o campo ISBN");
+    	}
     }
 
 }
