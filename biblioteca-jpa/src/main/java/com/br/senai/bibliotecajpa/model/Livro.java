@@ -1,4 +1,4 @@
-package com.br.senai.bibliotecajpa;
+package com.br.senai.bibliotecajpa.model;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;

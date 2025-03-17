@@ -1,7 +1,10 @@
-package com.br.senai.bibliotecajpa;
+package com.br.senai.bibliotecajpa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.br.senai.bibliotecajpa.model.Livro;
+import com.br.senai.bibliotecajpa.repository.LivroRepository;
 
 import java.util.List;
 
