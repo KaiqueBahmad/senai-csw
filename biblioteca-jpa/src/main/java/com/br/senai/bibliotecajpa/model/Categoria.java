@@ -18,13 +18,13 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @OneToMany(mappedBy = "categorias", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<Livro> livros = new HashSet<>();
-    
     @Column(name = "nome", nullable = false, unique = true, length = 100)
     private String nome;
     @Column(name = "descricao", nullable = true, length = 100)
     private String descricao;
+    
 	@Override
 	public int hashCode() {
 		return Objects.hash(descricao, id
@@ -55,6 +55,7 @@ public class Categoria {
 	public void setLivros(Set<Livro> livros) {
 		this.livros = livros;
 	}
+	
 	public String getNome() {
 		return nome;
 	}
