@@ -4,8 +4,20 @@ import { Component } from '@angular/core';
   selector: 'app-info-projeto',
   standalone: true,
   imports: [],
-  templateUrl: './info-projeto.component.html',
-  styleUrl: './info-projeto.component.css'
+  template: `
+    <div class="container">
+      <h2>Sobre o projeto</h2>
+      <p>
+        Este é um sistema para guardar nomes de alunos.
+        Você pode adicionar nomes na página de formulário e ver todos eles listados.
+      </p>
+      <p>
+        Usando angular, rotas, renderização de listas, reações onclick
+      </p>
+      <a href="/formulario">Ir para formulario</a>
+    </div>
+  `,
+  styleUrl: "./info-projeto.component.css"
 })
 export class InfoProjetoComponent {
 
