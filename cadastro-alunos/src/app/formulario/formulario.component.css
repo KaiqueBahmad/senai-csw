@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+  
+form {
+  width: 300px;
+  padding: 20px;
+  background-color: #CCDBDC;
+  text-align: center;
+  border-radius: 5px;
+}
+  
+h2 {
+  margin-bottom: 20px;
+}
+  
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+  
+button {
+  padding: 8px 20px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -4,8 +4,23 @@ import { Component } from '@angular/core';
   selector: 'app-header',
   standalone: true,
   imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  template: `
+    <header>
+      <h1>Cadastro de Alunos</h1>
+    </header>
+  `,
+  styles: `
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      background-color: #2F195F;
+      color: white;
+      width: 100%;
+      height: 5vw;
+    }
+  `
 })
 export class HeaderComponent {
 
