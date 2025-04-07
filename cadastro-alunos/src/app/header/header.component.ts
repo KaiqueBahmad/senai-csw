@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
   template: `
     <header>
       <h1>Cadastro de Alunos</h1>
+      <div style="display: flex; gap: 5px;">
+        <a href="/info" style="color: white;">ver informações</a>
+        <a href="/formulario" style="color: white;">lista de alunos</a>
+      </div>
     </header>
   `,
   styles: `
@@ -14,6 +18,7 @@ import { Component } from '@angular/core';
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       
       background-color: #2F195F;
       color: white;

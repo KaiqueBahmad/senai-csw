@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule],
   template: `
     <div class="container">
-      <a href="/info">ver informações</a>
       <form (submit)="onSubmit($event)" autocomplete="off">
         <input type="text" name="nome" placeholder="Nome" [(ngModel)]="nome" autocomplete="off">
         <button type="submit">Adicionar</button>

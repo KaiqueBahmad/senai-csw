@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
       <p>
         Usando angular, rotas, renderização de listas, reações onclick
       </p>
-      <a href="/formulario">Ir para formulario</a>
     </div>
   `,
   styleUrl: "./info-projeto.component.css"
