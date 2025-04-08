@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AlunosServiceService } from '../services/alunos-service.service';
 
 @Component({
   selector: 'app-formulario',
@@ -34,11 +35,15 @@ export class FormularioComponent {
   nome: string = "";
   alunos: string[] = [];
 
+  constructor(private alunosService:AlunosServiceService) {
+  }
+
   onSubmit(event: Event) {
     event.preventDefault();
     
     if (this.nome.trim()) {
-      this.alunos.push(this.nome);
+      this.alunosService.addAluno(this.nome);
+      this.alunos = this.alunosService.getAlunos();
       this.nome = "";
     }
   }
