@@ -1,0 +1,9 @@
+<div class="common-content" style="background-color: aquamarine;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+        <p>formulario</p>
+        <input type="text" placeholder="Nome" [(ngModel)]="this.contato.nome">
+        <input type="email" placeholder="Email" [(ngModel)]="this.contato.email">
+        <input type="tel" placeholder="Telefone" [(ngModel)]="this.contato.telefone">
+        <button type="button" (click)="enviar()">Enviar</button>
+    </div>
+</div>

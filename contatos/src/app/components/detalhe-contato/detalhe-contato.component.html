@@ -1,0 +1,7 @@
+<div class="common-content" style="background-color: purple;flex-direction: column;">
+    <p>detalhe contato</p>
+    @if (selected) {
+        <p>NOME: {{selected.nome}}</p>
+        <button (click)="excluir(selected.id)">Excluir</button>
+    }
+</div>
