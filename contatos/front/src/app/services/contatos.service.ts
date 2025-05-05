@@ -1,57 +1,56 @@
 import { Injectable } from '@angular/core';
 import { Contato } from '../interfaces/contato';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContatosService {
-  private COUNTER: number = 3;
-  contatos: Contato[] = [
-    {
-      id: 1,
-      email: "kaiquebahmadt@gmail.com",
-      nome: "Kaique",
-      telefone: "62985250032"
-    },
-    {
-      id: 2,
-      email:"teste@gmail.com",
-      nome: "Teste",
-      telefone: "62995487756"
-    }
-  ];
   private selectedSubject: Subject<Contato| undefined> = new Subject<Contato|undefined>();
   selectedObservable: Observable<Contato | undefined> = this.selectedSubject.asObservable();
 
-  
+  private contatosSubject: BehaviorSubject<Contato[]> = new BehaviorSubject<Contato[]>([]);
+  contatosObservable: Observable<Contato[]> = this.contatosSubject.asObservable();
 
+  constructor(private httpClient: HttpClient) {
+    this.refresh();
 
-  constructor() { }
-  public addContato(contato: Contato) {
-    if (!contato.email || !contato.nome || !contato.telefone) {
-      alert("Preencha a todos atributos")
-      return;
-    }
-    contato.id = this.COUNTER++;
-    this.contatos.push(contato);
+  }
+  public addContato(contato: Contato):void {
+    contato.id = undefined;
+    this.httpClient.post<any>(environment.API_URL+ "/contatos", contato).subscribe(
+      () => {
+        this.refresh();
+      }
+    );
   }
   public selectContato(id?:number) {
     if (id === undefined) {
       this.selectedSubject.next(undefined);
     }
-    this.selectedSubject.next(this.contatos.find(
+    this.selectedSubject.next(this.contatosSubject.value.find(
       (cont) => {
         return cont.id == id;
       }
     ));
   }
 
-  excluir(id: number | undefined) {
-    this.contatos = this.contatos.filter((x) => {
-      return x.id !== id;
-    });
-    this.selectedSubject.next(undefined);
+  public excluir(id: number | undefined) {
+    this.httpClient.delete<any>(environment.API_URL + '/contatos/'+id).subscribe(
+      () => {
+        this.selectedSubject.next(undefined);
+        this.refresh();
+      }
+    );
   }
 
+  public refresh() {
+    this.httpClient.get<Contato[]>(environment.API_URL + '/contatos').subscribe(
+      (x) => {
+        this.contatosSubject.next(x);
+      }
+    );
+  }
 }

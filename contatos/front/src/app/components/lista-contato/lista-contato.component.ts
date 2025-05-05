@@ -11,14 +11,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   styleUrl: './lista-contato.component.css'
 })
 export class ListaContatoComponent {
-  contatos!: Contato[];
+  contatos: Contato[] = [];
   constructor(private contatosService:ContatosService, private router: Router, private route: ActivatedRoute) {
-    this.contatosService.selectedObservable.subscribe(
-      (_) => {
-        this.contatos = contatosService.contatos;
+    this.contatosService.contatosObservable.subscribe(
+      (x) => {
+        this.contatos = x;
       }
-    );
-    this.contatos = contatosService.contatos;
+    )
   }
   
   openDetalhes(id?: number) {
