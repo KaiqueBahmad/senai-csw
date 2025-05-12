@@ -27,7 +27,7 @@ public class Grupo {
     private String nome;
     
 
-    @ManyToMany(mappedBy = "contato")
+    @ManyToMany(mappedBy = "grupos")
     private Set<Contato> contatos = new HashSet<>();
 
     public Long getId() {
