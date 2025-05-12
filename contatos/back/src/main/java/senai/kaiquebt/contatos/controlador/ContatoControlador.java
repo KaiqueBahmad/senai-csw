@@ -76,6 +76,41 @@ public class ContatoControlador {
         }
     }
 
+    @PostMapping("/{contatoId}/grupo/{grupoId}")
+    @Operation(summary = "Adicionar contato a um grupo", description = "Adiciona um contato a um grupo existente")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Contato adicionado ao grupo com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Contato ou grupo não encontrado")
+    })
+    public ResponseEntity<Void> adicionarContatoAGrupo(
+            @Parameter(description = "ID do contato a ser adicionado") @PathVariable Long contatoId,
+            @Parameter(description = "ID do grupo ao qual o contato será adicionado") @PathVariable Long grupoId) {
+        try {
+            contatoServico.adicionarContatoAGrupo(contatoId, grupoId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{contatoId}/grupo/{grupoId}")
+    @Operation(summary = "Remover contato a um grupo", description = "Remove um contato a um grupo existente")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Contato removido ao grupo com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Contato ou grupo não encontrado")
+    })
+    public ResponseEntity<Void> removerContatoAGrupo(
+            @Parameter(description = "ID do contato a ser removido") @PathVariable Long contatoId,
+            @Parameter(description = "ID do grupo ao qual o contato será removido") @PathVariable Long grupoId) {
+        try {
+            contatoServico.removerContatoAGrupo(contatoId, grupoId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Excluir um contato", description = "Exclui um contato por ID")
     @ApiResponses(value = {

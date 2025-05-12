@@ -1,7 +1,10 @@
 package senai.kaiquebt.contatos.servico;
 
 import senai.kaiquebt.contatos.entidades.Contato;
+import senai.kaiquebt.contatos.entidades.Grupo;
 import senai.kaiquebt.contatos.repositorio.ContatoRepositorio;
+import senai.kaiquebt.contatos.repositorio.GrupoRepositorio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +15,10 @@ import java.util.Optional;
 public class ContatoServico {
 
     private final ContatoRepositorio contatoRepositorio;
-
+    private final GrupoRepositorio grupoRepositorio;
     @Autowired
-    public ContatoServico(ContatoRepositorio contatoRepositorio) {
+    public ContatoServico(ContatoRepositorio contatoRepositorio, GrupoRepositorio grupoRepositorio) {
+        this.grupoRepositorio = grupoRepositorio;
         this.contatoRepositorio = contatoRepositorio;
     }
 
@@ -28,6 +32,33 @@ public class ContatoServico {
 
     public Contato salvarContato(Contato contato) {
         return contatoRepositorio.save(contato);
+    }
+
+    public Contato adicionarContatoAGrupo(Long idContato, Long idGrupo) {
+        Contato contato = contatoRepositorio.findById(idContato)
+                .orElseThrow(() -> new RuntimeException("Contato não encontrado com o id: " + idContato));
+        Grupo grupo = grupoRepositorio.findById(idGrupo)
+                .orElseThrow(() -> new RuntimeException("Grupo não encontrado com o id: " + idGrupo));
+        grupo.getContatos().add(contato);
+        contato.getGrupos().add(grupo);
+        grupoRepositorio.save(grupo);
+        return contatoRepositorio.save(contato);
+    }
+
+    public void removerContatoAGrupo(Long contatoId, Long grupoId) {
+        Contato contato = contatoRepositorio.findById(contatoId)
+                .orElseThrow(() -> new RuntimeException("Contato não encontrado com o id: " + contatoId)); 
+        Grupo grupo = grupoRepositorio.findById(grupoId)
+                .orElseThrow(() -> new RuntimeException("Grupo não encontrado com o id: " + grupoId));
+        grupo.getContatos().remove(contato);
+        contato.getGrupos().remove(grupo);
+        contatoRepositorio.save(contato);
+        grupoRepositorio.save(grupo);
+    }
+
+    public Contato toggleFavoritar(Contato contato) {
+        contato.setFavorito(contato.getFavorito() == null ? true: !contato.getFavorito());
+        return this.contatoRepositorio.save(contato);
     }
 
     public void excluirContato(Long id) {
