@@ -41,7 +41,6 @@ public class ContatoServico {
                 .orElseThrow(() -> new RuntimeException("Grupo não encontrado com o id: " + idGrupo));
         grupo.getContatos().add(contato);
         contato.getGrupos().add(grupo);
-        grupoRepositorio.save(grupo);
         return contatoRepositorio.save(contato);
     }
 
@@ -52,7 +51,6 @@ public class ContatoServico {
                 .orElseThrow(() -> new RuntimeException("Grupo não encontrado com o id: " + grupoId));
         grupo.getContatos().remove(contato);
         contato.getGrupos().remove(grupo);
-        contatoRepositorio.save(contato);
         grupoRepositorio.save(grupo);
     }
 

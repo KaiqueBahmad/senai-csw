@@ -34,6 +34,9 @@ public class ContatoControlador {
     @ApiResponse(responseCode = "200", description = "Contatos recuperados com sucesso")
     public ResponseEntity<List<Contato>> buscarTodosContatos() {
         List<Contato> contatos = contatoServico.buscarTodosContatos();
+        contatos.forEach(contato -> {
+            contato.getGrupos().forEach(grupo -> grupo.setContatos(null));
+        });
         return new ResponseEntity<>(contatos, HttpStatus.OK);
     }
 
@@ -46,6 +49,9 @@ public class ContatoControlador {
     public ResponseEntity<Contato> buscarContatoPorId(
             @Parameter(description = "ID do contato a ser recuperado") @PathVariable Long id) {
         Optional<Contato> contato = contatoServico.buscarContatoPorId(id);
+        if (contato.isPresent()) {
+            contato.get().setGrupos(null);
+        }
         return contato.map(valor -> new ResponseEntity<>(valor, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

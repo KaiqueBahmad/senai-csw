@@ -16,7 +16,8 @@ export class FormularioComponent {
     email: undefined,
     id: undefined,
     nome: undefined,
-    telefone: undefined
+    telefone: undefined,
+    grupos: undefined
   }
 
   constructor(private contatosService: ContatosService) {

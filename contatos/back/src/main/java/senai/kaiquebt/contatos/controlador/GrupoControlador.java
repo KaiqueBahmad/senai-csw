@@ -25,6 +25,9 @@ public class GrupoControlador {
     @GetMapping("")
     public ResponseEntity<List<Grupo>> buscarTodosGrupos() {
         List<Grupo> grupos = grupoServico.buscarTodosGrupos();
+        grupos.forEach(grupo -> {
+            grupo.setContatos(null);
+        });
         return new ResponseEntity<>(grupos, HttpStatus.OK);
     }
 
