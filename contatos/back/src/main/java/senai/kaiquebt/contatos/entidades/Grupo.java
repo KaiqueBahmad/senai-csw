@@ -22,7 +22,6 @@ public class Grupo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(unique = true)
     private String nome;
     
@@ -52,6 +51,11 @@ public class Grupo {
 
     public void setContatos(Set<Contato> contatos) {
         this.contatos = contatos;
+    }
+
+    @Override
+    public String toString() {
+        return "Grupo [id=" + id + ", nome=" + nome + ", contatos=" + contatos + "]";
     }
 
 }

@@ -15,6 +15,7 @@ public class GrupoServico {
     private GrupoRepositorio grupoRepositorio;
 
     public Grupo criarGrupo(String nome) {
+        System.out.println(nome);
         Grupo grupo = new Grupo();
         grupo.setNome(nome);
         return this.grupoRepositorio.save(grupo);

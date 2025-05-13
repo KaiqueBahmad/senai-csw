@@ -3,6 +3,7 @@ import { FormularioComponent } from './components/formulario/formulario.componen
 import { ListaContatoComponent } from './components/lista-contato/lista-contato.component';
 import { DetalheContatoComponent } from './components/detalhe-contato/detalhe-contato.component';
 import { ListaLayoutComponent } from './components/lista-layout/lista-layout.component';
+import { GruposPageComponent } from './components/grupos-page/grupos-page.component';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,10 @@ export const routes: Routes = [
     {
         path: "form",
         component: FormularioComponent
+    },
+    {
+        path: 'grupos',
+        component: GruposPageComponent
     },
     {
         path:"",
