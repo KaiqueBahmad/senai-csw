@@ -1,9 +1,86 @@
-<div class="common-content" style="background-color: aquamarine;">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-        <p>formulario</p>
-        <input type="text" placeholder="Nome" [(ngModel)]="this.contato.nome">
-        <input type="email" placeholder="Email" [(ngModel)]="this.contato.email">
-        <input type="tel" placeholder="Telefone" [(ngModel)]="this.contato.telefone">
-        <button type="button" (click)="enviar()">Enviar</button>
+<!-- Usando a nova sintaxe do Angular 17 -->
+<p-toast></p-toast>
+
+<p-card header="Cadastro de Contato" styleClass="p-mt-4">
+  <div class="p-fluid p-formgrid grid">
+    <!-- Campo Nome -->
+    <div class="field col-12 mb-3">
+      <label for="nome" class="mb-2">Nome</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input 
+          id="nome" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="contato.nome" 
+          placeholder="Digite o nome do contato"
+          class="p-inputtext-lg"
+        />
+      </span>
     </div>
-</div>
+
+    <!-- Campo Email -->
+    <div class="field col-12 mb-3">
+      <label for="email" class="mb-2">Email</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input 
+          id="email" 
+          type="email" 
+          pInputText 
+          [(ngModel)]="contato.email" 
+          placeholder="Digite o email do contato"
+          class="p-inputtext-lg"
+        />
+      </span>
+    </div>
+
+    <!-- Campo Telefone -->
+    <div class="field col-12 mb-3">
+      <label for="telefone" class="mb-2">Telefone</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-phone"></i>
+        <p-inputMask 
+          id="telefone" 
+          [(ngModel)]="contato.telefone" 
+          mask="(99) 99999-9999" 
+          placeholder="Digite o telefone do contato"
+          styleClass="p-inputtext-lg"
+        ></p-inputMask>
+      </span>
+    </div>
+
+    <!-- Campo Grupos -->
+    <div class="field col-12 mb-3">
+      <label for="grupos" class="mb-2">Grupos</label>
+      <p-multiSelect 
+        id="grupos"
+        [options]="gruposDisponiveis" 
+        [(ngModel)]="contato.grupos" 
+        optionLabel="nome" 
+        placeholder="Selecione os grupos" 
+        display="chip"
+      ></p-multiSelect>
+    </div>
+
+    <!-- Botões -->
+    <div class="field col-12 flex justify-content-end mt-3">
+      <button 
+        pButton 
+        type="button" 
+        label="Limpar" 
+        icon="pi pi-trash" 
+        class="p-button-outlined p-button-danger mr-2" 
+        (click)="limpar()"
+      ></button>
+      <button 
+        pButton 
+        type="button" 
+        label="Salvar" 
+        icon="pi pi-check" 
+        class="p-button-success" 
+        (click)="enviar()"
+      ></button>
+    </div>
+  </div>
+</p-card>
